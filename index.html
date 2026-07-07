@@ -48,7 +48,23 @@
         .subtitle:hover { color:#a0b8ff; }
 
         .letter { font-size:1.27rem; line-height:2.15; color:#d0d8ee; }
-        .letter p { margin-bottom:40px; }
+        .letter p { 
+            margin-bottom:40px; 
+            opacity: 0; 
+            transform: translateY(20px); 
+            animation: fadeUp 1.8s forwards; 
+        }
+        .letter p:nth-child(1) { animation-delay: 0.4s; }
+        .letter p:nth-child(2) { animation-delay: 1.2s; }
+        .letter p:nth-child(3) { animation-delay: 2.0s; }
+        .letter p:nth-child(4) { animation-delay: 2.8s; }
+        .letter p:nth-child(5) { animation-delay: 3.6s; }
+        .letter p:nth-child(6) { animation-delay: 4.4s; }
+        .letter p:nth-child(7) { animation-delay: 5.2s; }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         .signature { margin-top:100px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.3rem; }
 
@@ -133,7 +149,7 @@
     </div>
 
     <script>
-        const correctPassword = "seraphi";   // ← Change this to your desired password
+        const correctPassword = "seraphi";   // Change this to your desired password
 
         function checkPassword() {
             const input = document.getElementById("passInput").value;
@@ -143,7 +159,7 @@
                 
                 // Restore scroll position
                 const savedPos = localStorage.getItem('scrollPos');
-                if (savedPos) setTimeout(() => window.scrollTo(0, parseInt(savedPos)), 200);
+                if (savedPos) setTimeout(() => window.scrollTo(0, parseInt(savedPos)), 300);
             } else {
                 document.getElementById("error").style.display = "block";
                 setTimeout(() => document.getElementById("error").style.display = "none", 2500);
@@ -154,7 +170,7 @@
             if (e.key === "Enter") checkPassword();
         });
 
-        // Canvas Starry Sky
+        // Canvas + Stars (same as before)
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -192,7 +208,7 @@
         }
         animate();
 
-        // Shooting Stars
+        // Shooting Stars, Progress Bar, etc. (kept functional)
         function createShootingStar() {
             const star = document.createElement('div');
             star.style.position = 'fixed';
@@ -204,13 +220,12 @@
             star.style.boxShadow = '0 0 18px #a0c8ff';
             star.style.zIndex = '-1';
             star.style.opacity = '0';
-            star.style.transform = 'rotate(12deg)';
             document.body.appendChild(star);
 
             star.animate([
-                { transform: 'translateX(0) rotate(12deg)', opacity: 0 },
+                { transform: 'translateX(0)', opacity: 0 },
                 { opacity: 0.9, offset: 0.15 },
-                { transform: `translateX(${window.innerWidth + 400}px) rotate(12deg)`, opacity: 0 }
+                { transform: `translateX(${window.innerWidth + 400}px)`, opacity: 0 }
             ], { duration: Math.random() * 2200 + 2800, easing: 'linear' });
 
             setTimeout(() => star.remove(), 9000);
@@ -222,7 +237,7 @@
 
         setInterval(() => { if (Math.random() > 0.45) createShootingStar(); }, 2600);
 
-        // Progress Bar + Auto-save scroll
+        // Progress + Auto-save
         window.addEventListener('scroll', () => {
             const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById("progress").style.width = scrolled + "%";
