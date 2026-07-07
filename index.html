@@ -11,7 +11,7 @@
         body { margin:0; padding:0; background:#02040a; color:#c8d0e0; font-family:'Inconsolata', monospace; overflow-x:hidden; min-height:100vh; }
         canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
 
-        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(2,4,15,0.75), rgba(8,12,40,0.95)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(2,4,15,0.82), rgba(8,12,40,0.97)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
         
         .container {
             max-width:880px; background:rgba(10,15,40,0.96); border:1px solid #445577; border-radius:22px;
@@ -35,12 +35,17 @@
         .letter { font-size:1.27rem; line-height:2.15; color:#d0d8ee; }
         .letter p { margin-bottom:40px; }
 
-        .signature { margin-top:100px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.3rem; animation:typewriter 4s steps(30, end) forwards; white-space:nowrap; overflow:hidden; }
+        .signature { margin-top:100px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.3rem; }
 
-        footer { text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; }
+        footer { 
+            text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; 
+            cursor:pointer; transition: color 0.3s;
+        }
+        footer:hover { color: #a0b8ff; }
 
-        .sound-toggle {
-            position:fixed; bottom:30px; right:30px; background:rgba(20,30,70,0.8); color:#a0b8ff; border:none; padding:12px 18px; border-radius:50px; cursor:pointer; z-index:100; font-size:0.95rem;
+        .second-page {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(2,4,15,0.98); z-index: 200; padding: 80px 40px; overflow-y: auto;
         }
     </style>
 </head>
@@ -48,11 +53,11 @@
     <canvas id="canvas"></canvas>
     <div class="progress-bar" id="progress"></div>
 
-    <div class="overlay">
+    <div class="overlay" id="mainPage">
         <div class="container">
             <header>
                 <h1 onclick="createBurst()">unseen.</h1>
-                <p class="subtitle">a letter from a boy turning 18 who’s been quiet too long</p>
+                <p class="subtitle">a letter from a man turning 18 who’s been quiet too long</p>
             </header>
             
             <div class="letter">
@@ -60,7 +65,7 @@
                 
                 <p>There’s nothing in me worth admiring. I’ve known it for so long it feels like a scar that won’t heal. I wake up every day carrying this quiet shame, smiling at the world while something inside me slowly dies from being unseen for so many years.</p>
                 
-                <p>I’m a Christian boy from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight. I’m seventeen now, turning eighteen on August 14th, and the weight never seems to lift.</p>
+                <p>I’m a Christian man from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight. I’m seventeen now, turning eighteen on August 14th, and the weight never seems to lift.</p>
                 
                 <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone.</p>
                 
@@ -72,19 +77,30 @@
                 
                 <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there who will be patient, brave, and in love enough to choose the real me. Or if I’m doomed to stay unseen forever.</p>
                 
-                <div class="signature">— A scared, exhausted, still-hoping Christian boy turning 18 soon</div>
+                <div class="signature">— A scared, exhausted, still-hoping Christian man turning 18 soon</div>
             </div>
             
-            <footer>
-                written in the dark • still fighting • Finland, 2026
-            </footer>
+            <footer onclick="showSecondPage()">written in the dark • still fighting • Finland, 2026</footer>
         </div>
     </div>
 
-    <button class="sound-toggle" id="soundBtn">🔇 Rain + Wind</button>
+    <!-- Second Page -->
+    <div class="second-page" id="secondPage">
+        <div style="max-width:720px; margin:auto; text-align:center;">
+            <h1 style="font-size:2.8rem; margin-bottom:40px;">Thank you for reading.</h1>
+            <p style="font-size:1.25rem; line-height:1.9; color:#b0c0e0;">
+                If these words reached you… thank you.<br><br>
+                I don’t expect anything. I just needed to let it out.<br>
+                If you’re struggling too — I see you. You’re not alone.<br><br>
+                May God give us both the strength to keep going.
+            </p>
+            <p onclick="hideSecondPage()" style="margin-top:80px; color:#667799; cursor:pointer; text-decoration:underline;">
+                ← Back to the letter
+            </p>
+        </div>
+    </div>
 
     <script>
-        // Canvas Starry Sky
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -96,9 +112,9 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2.2;
-                this.speed = Math.random() * 0.015 + 0.005;
+                this.speed = Math.random() * 0.02 + 0.008;
             }
-            update() { this.size = 1.8 + Math.sin(Date.now() * this.speed) * 0.8; }
+            update() { this.size = 1.8 + Math.sin(Date.now() * this.speed) * 0.9; }
             draw() {
                 ctx.fillStyle = 'white';
                 ctx.globalAlpha = 0.6 + Math.sin(Date.now() * this.speed) * 0.4;
@@ -106,7 +122,7 @@
             }
         }
 
-        for (let i = 0; i < 450; i++) stars.push(new Star());
+        for (let i = 0; i < 480; i++) stars.push(new Star());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -120,45 +136,45 @@
             canvas.height = window.innerHeight;
         });
 
-        // Shooting Stars
         function createShootingStar() {
             const star = document.createElement('div');
             star.className = 'shooting-star';
             star.style.top = Math.random() * 70 + '%';
-            star.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            star.style.animationDuration = (Math.random() * 5 + 4) + 's';
             document.body.appendChild(star);
             setTimeout(() => star.remove(), 11000);
         }
 
         function createBurst() {
-            for (let i = 0; i < 12; i++) setTimeout(createShootingStar, i * 70);
+            for (let i = 0; i < 14; i++) setTimeout(createShootingStar, i * 60);
         }
 
-        setInterval(() => { if (Math.random() > 0.5) createShootingStar(); }, 2200);
+        setInterval(() => { if (Math.random() > 0.48) createShootingStar(); }, 2400);
 
-        // Progress Bar
+        // Progress Bar + Auto-save position
+        const progress = document.getElementById("progress");
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            document.getElementById("progress").style.width = scrolled + "%";
+            progress.style.width = scrolled + "%";
+
+            localStorage.setItem('scrollPosition', winScroll);
         });
 
-        // Sound Toggle
-        let audio;
-        document.getElementById('soundBtn').addEventListener('click', () => {
-            if (!audio) {
-                audio = new Audio('https://freesound.org/data/previews/202/202310_3730055-lq.mp3'); // soft rain+wind
-                audio.loop = true;
-            }
-            if (audio.paused) {
-                audio.play();
-                document.getElementById('soundBtn').textContent = '🔊 Rain + Wind';
-            } else {
-                audio.pause();
-                document.getElementById('soundBtn').textContent = '🔇 Rain + Wind';
-            }
+        // Restore scroll position
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('scrollPosition');
+            if (saved) window.scrollTo(0, parseInt(saved));
         });
+
+        // Second Page
+        function showSecondPage() {
+            document.getElementById('secondPage').style.display = 'flex';
+        }
+        function hideSecondPage() {
+            document.getElementById('secondPage').style.display = 'none';
+        }
     </script>
 </body>
 </html>
