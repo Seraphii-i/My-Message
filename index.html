@@ -9,43 +9,52 @@
         @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Space+Grotesk:wght@400;500;600&display=swap');
         
         body { margin:0; padding:0; background:#05070f; color:#c8d0e0; font-family:'Inconsolata', monospace; overflow-x:hidden; min-height:100vh; }
-        .stars { position:fixed; inset:0; background:#05070f url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover; z-index:-4; animation:slowDrift 200s linear infinite; }
+        .stars { position:fixed; inset:0; background:#05070f url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover; z-index:-4; animation:slowDrift 180s linear infinite; }
         .stars::before, .stars::after {
             content:''; position:absolute; inset:0;
             background:radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px);
-            background-size:80px 80px; animation:twinkle 6s infinite alternate; z-index:-3;
+            background-size:80px 80px; animation:twinkle 5.5s infinite alternate; z-index:-3;
         }
-        .stars::after { background-size:150px 150px; animation-duration:13s; opacity:0.45; }
+        .stars::after { background-size:160px 160px; animation-duration:12s; opacity:0.5; }
 
-        @keyframes slowDrift { 0%{background-position:0 0} 100%{background-position:100px 80px} }
-        @keyframes twinkle { 0%{opacity:0.3} 100%{opacity:0.95} }
+        @keyframes slowDrift { 0%{background-position:0 0} 100%{background-position:110px 70px} }
+        @keyframes twinkle { 0%{opacity:0.35} 100%{opacity:0.95} }
 
-        .shooting-star { position:absolute; height:2px; background:linear-gradient(90deg,transparent,#a0d0ff,transparent); box-shadow:0 0 15px #a0d0ff; animation:shoot 7s linear forwards; opacity:0; z-index:-2; }
-        @keyframes shoot { 0%{transform:translateX(-200px) translateY(0); opacity:0} 20%{opacity:1} 100%{transform:translateX(1400px) translateY(400px); opacity:0} }
+        .shooting-star { position:absolute; height:2px; background:linear-gradient(90deg,transparent,#a0d0ff,transparent); box-shadow:0 0 18px #a0d0ff; animation:shoot linear forwards; opacity:0; z-index:-2; }
+        @keyframes shoot { 0%{transform:translateX(-300px) translateY(0); opacity:0} 15%{opacity:1} 100%{transform:translateX(1500px) translateY(450px); opacity:0} }
 
-        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(5,7,25,0.85), rgba(10,15,45,0.97)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(5,7,25,0.88), rgba(10,15,45,0.97)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
         
         .container {
-            max-width:860px; background:rgba(12,18,45,0.96); border:1px solid #445577; border-radius:18px;
-            padding:80px 70px; box-shadow:0 0 80px rgba(120,160,255,0.25); animation:float 35s ease-in-out infinite;
+            max-width:880px; background:rgba(12,18,45,0.97); border:1px solid #445577; border-radius:20px;
+            padding:85px 75px; box-shadow:0 0 90px rgba(120,160,255,0.35); animation:float 38s ease-in-out infinite;
         }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
 
         h1 {
-            font-family:'Space Grotesk',sans-serif; font-size:3.4rem; color:#b8cfff;
+            font-family:'Space Grotesk',sans-serif; font-size:3.5rem; color:#b8cfff;
             text-align:center; cursor:pointer; margin:0 0 12px 0;
-            text-shadow:0 0 35px rgba(160,200,255,0.85);
+            text-shadow:0 0 40px rgba(160,200,255,0.9);
+            transition: all 0.6s;
         }
-        h1:hover { transform:scale(1.03); }
+        h1:hover { transform:scale(1.05); text-shadow:0 0 55px rgba(180,220,255,1); }
 
-        .subtitle { text-align:center; color:#8899cc; letter-spacing:5px; margin-bottom:65px; font-size:1.1rem; }
+        .subtitle { text-align:center; color:#8899cc; letter-spacing:5px; margin-bottom:70px; font-size:1.1rem; }
 
-        .letter { font-size:1.26rem; line-height:2.1; color:#d0d8ee; }
-        .letter p { margin-bottom:38px; }
-        .letter .break { margin: 34px 0; display:block; color:#667799; }
+        .letter { font-size:1.27rem; line-height:2.12; color:#d0d8ee; }
+        .letter p { margin-bottom:39px; opacity:0; animation:fadeIn 1.8s forwards; }
+        .letter p:nth-child(1) { animation-delay: 0.3s; }
+        .letter p:nth-child(2) { animation-delay: 1.1s; }
+        .letter p:nth-child(3) { animation-delay: 2.0s; }
+        .letter p:nth-child(4) { animation-delay: 2.9s; }
+        .letter p:nth-child(5) { animation-delay: 3.8s; }
+        .letter p:nth-child(6) { animation-delay: 4.7s; }
+        .letter p:nth-child(7) { animation-delay: 5.6s; }
 
-        .signature { margin-top:95px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.25rem; }
-        footer { text-align:center; margin-top:140px; color:#556688; font-size:0.9rem; }
+        @keyframes fadeIn { to { opacity:1; } }
+
+        .signature { margin-top:100px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.28rem; }
+        footer { text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; }
     </style>
 </head>
 <body>
@@ -54,7 +63,7 @@
     <div class="overlay">
         <div class="container">
             <header>
-                <h1 onclick="createShootingStar()">unseen.</h1>
+                <h1 onclick="createShootingStarBurst()">unseen.</h1>
                 <p class="subtitle">a letter from a boy turning 18 who’s been quiet too long</p>
             </header>
             
@@ -63,23 +72,21 @@
                 
                 <p>There’s nothing in me worth admiring. I’ve known it for so long it feels like a scar that won’t heal. I wake up every day carrying this quiet shame, smiling at the world while something inside me slowly dies from being unseen for so many years.</p>
                 
-                <p>I’m a Christian boy from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. I stand for traditional values. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight years old. I’m seventeen now, turning eighteen on August 14th, and some days it feels unbearable.</p>
+                <p>I’m a Christian boy from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight. I’m seventeen now, turning eighteen on August 14th, and the weight never seems to lift.</p>
                 
-                <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone. I want to finally feel safe.</p>
+                <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone.</p>
                 
                 <p class="break">But people rarely see past my appearance. That’s the truth that cuts deepest.</p>
                 
-                <p>From middle school through high school and even now, I’ve been harassed and bullied relentlessly — mocked for how I look, for being quiet and reserved, for not joining their stupid shenanigans. They made sure I knew I was worthless. In this world, looks are everything. Personality, character, maturity, loyalty, how hard I work, how deeply I feel, my faith — none of it seems to matter anymore. People care ten times more about how you look than who you actually are. I know appearance matters to some degree, but it shouldn’t matter so much that you completely ignore someone just because they aren’t some damn bodybuilder with perfect features. It shouldn’t make you invisible.</p>
+                <p>From middle school through high school and beyond, I’ve been harassed and bullied relentlessly — mocked for how I look, for being quiet and reserved, for not joining their shenanigans. In this world, looks are everything. Personality, character, maturity, loyalty, how deeply I feel, my faith — none of it seems to matter. People care ten times more about how you look than who you actually are. I know appearance matters to some degree, but it shouldn’t matter so much that you completely ignore someone just because they aren’t some damn bodybuilder with perfect features. It shouldn’t make you invisible.</p>
                 
-                <p>I’m not hideous. I’m just… ordinary. Average. And apparently that’s enough to be discarded. I watch people swipe past, glance and look away, judge in seconds. They never stay long enough to see that I’d treat them better than anyone ever has. That I’d be loyal as hell. That I’d actually listen. That I have a heart that still hopes even after all this silence.</p>
+                <p>I’m not hideous. I’m just… ordinary. Average. And apparently that’s enough to be discarded. I find it so difficult to open up about my feelings because I fear they’ll be used against me, or I’ll just be told again to bottle it up because I’m a man. Even though I know darn well that men are allowed to be weak sometimes. Men are allowed to cry.</p>
                 
-                <p>So I stay quiet. I bottle it up. I carry the loneliness like it’s normal. Because admitting how desperately I want to be chosen — how badly I need someone to see me and still want me — feels more dangerous than staying alone. I’m tired of being the guy who’s “nice” but never enough. Tired of being overlooked while everyone chases the fantasy version of a man I’ll never be.</p>
+                <p>So I stay quiet. I bottle it up. I carry the loneliness like it’s normal. Because admitting how desperately I want to be chosen feels more dangerous than staying alone. I’m tired of being the guy who’s “nice” but never enough. Tired of being overlooked while everyone chases the fantasy version of a man I’ll never be.</p>
                 
-                <p>I’m so fucking exhausted. Exhausted from the fear of abandonment that never leaves. Exhausted from the jealousy that flares up when I imagine being replaced. Exhausted from pretending I’m okay when I attempted suicide at 14–15 and kept going. Exhausted from smiling while I break inside.</p>
+                <p>I’m so exhausted from the fear of abandonment, the jealousy, the anxiety, the depression I’ve carried since childhood, and the suicide attempt at 14–15 that still haunts me. I try to live by my Christian values — loyalty, integrity, purity — but some days it feels like the world punishes me for it.</p>
                 
-                <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there — someone who fears God, values biblical truth, and will look at all this mess and still choose the real me. Someone patient, brave, and in love enough to cross the distance, to fight the doubts, to stay when things get heavy.</p>
-                
-                <p>Or if I’m doomed to stay unseen forever.</p>
+                <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there who will be patient, brave, and in love enough to cross the distance, to fight the doubts, to choose the real me over the perfect picture. Or if I’m doomed to stay unseen forever.</p>
                 
                 <div class="signature">
                     — A scared, exhausted, still-hoping Christian boy turning 18 soon
@@ -96,12 +103,20 @@
         function createShootingStar() {
             const star = document.createElement('div');
             star.className = 'shooting-star';
-            star.style.top = Math.random() * 65 + '%';
-            star.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            star.style.top = Math.random() * 70 + '%';
+            star.style.animationDuration = (Math.random() * 5 + 4) + 's';
             document.body.appendChild(star);
-            setTimeout(() => star.remove(), 9000);
+            setTimeout(() => star.remove(), 10000);
         }
-        setInterval(() => { if (Math.random() > 0.6) createShootingStar(); }, 3200);
+
+        function createShootingStarBurst() {
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createShootingStar(), i * 80);
+            }
+        }
+
+        // Background shooting stars
+        setInterval(() => { if (Math.random() > 0.55) createShootingStar(); }, 2800);
     </script>
 </body>
 </html>
