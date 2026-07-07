@@ -13,7 +13,7 @@
             background: #02040a url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover fixed; 
             color:#c8d0e0; 
             font-family:'Inconsolata', monospace; 
-            overflow:hidden; 
+            overflow-x:hidden; 
             min-height:100vh; 
         }
         canvas { 
@@ -21,24 +21,10 @@
             mix-blend-mode: screen; opacity: 0.75;
         }
 
-        #password-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2,4,20,0.98); display: flex; align-items: center; justify-content: center;
-            z-index: 1000; flex-direction: column; color: #c8d0e0;
-        }
-        #password-screen input {
-            padding: 14px 20px; font-size: 1.1rem; background: #112244; border: 1px solid #445577;
-            color: #fff; border-radius: 8px; width: 280px; text-align: center;
-        }
-        #password-screen button {
-            margin-top: 20px; padding: 12px 32px; background: #334466; color: #a0c0ff;
-            border: none; border-radius: 8px; cursor: pointer; font-size: 1.05rem;
-        }
-
         .overlay { 
             position:relative; min-height:100vh; 
-            background:linear-gradient(to bottom, rgba(2,4,20,0.8), rgba(8,12,45,0.97)); 
-            display:none; align-items:center; justify-content:center; padding:40px 20px; 
+            background:linear-gradient(to bottom, rgba(2,4,20,0.75), rgba(8,12,45,0.92)); 
+            display:flex; align-items:center; justify-content:center; padding:40px 20px; 
         }
         
         .container {
@@ -51,7 +37,11 @@
             position:fixed; top:0; left:0; height:3px; background:linear-gradient(to right, #a0b8ff, #c0d0ff); z-index:100; transition:width 0.15s ease-out;
         }
 
-        h1 { font-family:'Space Grotesk',sans-serif; font-size:3.6rem; color:#b8cfff; text-align:center; cursor:pointer; margin:0 0 12px 0; text-shadow:0 0 45px rgba(160,200,255,0.95); }
+        h1 {
+            font-family:'Space Grotesk',sans-serif; font-size:3.6rem; color:#b8cfff;
+            text-align:center; cursor:pointer; margin:0 0 12px 0;
+            text-shadow:0 0 45px rgba(160,200,255,0.95);
+        }
         h1:hover { transform:scale(1.05); }
 
         .subtitle { text-align:center; color:#8899cc; letter-spacing:6px; margin-bottom:70px; font-size:1.12rem; cursor:pointer; }
@@ -62,7 +52,24 @@
 
         .signature { margin-top:100px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.3rem; }
 
-        footer { text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; }
+        footer { 
+            text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; 
+        }
+
+        /* Password Screen */
+        #password-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2,4,15,0.98); display: flex; align-items: center; justify-content: center;
+            z-index: 1000; flex-direction: column; color: #c8d0e0;
+        }
+        #password-screen input {
+            padding: 14px 20px; font-size: 1.1rem; background: #111827; border: 1px solid #445577;
+            color: #c8d0e0; border-radius: 8px; width: 280px; text-align: center;
+        }
+        #password-screen button {
+            margin-top: 20px; padding: 12px 32px; background: #334466; color: #c8d0e0;
+            border: none; border-radius: 8px; cursor: pointer; font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -70,76 +77,84 @@
     <div id="password-screen">
         <h2 style="margin-bottom:30px; color:#a0b8ff;">unseen.</h2>
         <p style="margin-bottom:20px;">Enter password to continue</p>
-        <input type="password" id="passInput" placeholder="password" autocomplete="off">
+        <input type="password" id="passInput" placeholder="Password" autocomplete="off">
         <button onclick="checkPassword()">Enter</button>
         <p id="error" style="color:#ff6666; margin-top:15px; display:none;">Incorrect password</p>
     </div>
 
     <!-- Main Content -->
-    <div id="main-content" class="overlay" style="display:none;">
+    <div id="main-content" style="display:none;">
         <canvas id="canvas"></canvas>
         <div class="progress-bar" id="progress"></div>
 
-        <div class="container">
-            <header>
-                <h1 onclick="createBurst()">unseen.</h1>
-                <p class="subtitle" onclick="showSecondPage()">a letter from a man turning 18 who’s been quiet too long</p>
-            </header>
-            
-            <div class="letter">
-                <p>To whoever actually stops and reads this… if anyone ever does —</p>
+        <div class="overlay" id="page1">
+            <div class="container">
+                <header>
+                    <h1 onclick="createBurst()">unseen.</h1>
+                    <p class="subtitle" onclick="showSecondPage()">a letter from a man turning 18 who’s been quiet too long</p>
+                </header>
                 
-                <p>There’s nothing in me worth admiring. I’ve known it for so long it feels like a scar that won’t heal. I wake up every day carrying this quiet shame, smiling at the world while something inside me slowly dies from being unseen for so many years.</p>
+                <div class="letter">
+                    <p>To whoever actually stops and reads this… if anyone ever does —</p>
+                    
+                    <p>There’s nothing in me worth admiring. I’ve known it for so long it feels like a scar that won’t heal. I wake up every day carrying this quiet shame, smiling at the world while something inside me slowly dies from being unseen for so many years.</p>
+                    
+                    <p>I’m a Christian man from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight. I’m seventeen now, turning eighteen on August 14th, and the weight never seems to lift.</p>
+                    
+                    <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone.</p>
+                    
+                    <p>But people rarely see past my appearance. That’s the truth that cuts deepest. From middle school through high school and beyond, I’ve been harassed and bullied relentlessly — mocked for how I look, for being quiet and reserved, for not joining their shenanigans. In this world, looks are everything. Loyalty, character, faith, how deeply I feel — none of it seems to matter. People care ten times more about how you look than who you actually are.</p>
+                    
+                    <p>I find it so difficult to open up about my feelings because I fear they’ll be used against me, or I’ll just be told again to bottle it up because I’m a man. Even though I know darn well that men are allowed to be weak sometimes. Men are allowed to cry.</p>
+                    
+                    <p>I’m not hideous. I’m just ordinary. And apparently that’s enough to be discarded. I’m so exhausted from the fear of abandonment, the jealousy, the anxiety, the depression, and the suicide attempt at 14–15 that still haunts me. I try to live by my Christian values, but some days it feels like the world punishes me for it.</p>
+                    
+                    <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there who will be patient, brave, and in love enough to choose the real me. Or if I’m doomed to stay unseen forever.</p>
+                    
+                    <div class="signature">— A scared, exhausted, still-hoping Christian man turning 18 soon</div>
+                </div>
                 
-                <p>I’m a Christian man from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight. I’m seventeen now, turning eighteen on August 14th, and the weight never seems to lift.</p>
-                
-                <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone.</p>
-                
-                <p>But people rarely see past my appearance. That’s the truth that cuts deepest. From middle school through high school and beyond, I’ve been harassed and bullied relentlessly — mocked for how I look, for being quiet and reserved, for not joining their shenanigans. In this world, looks are everything. Loyalty, character, faith, how deeply I feel — none of it seems to matter. People care ten times more about how you look than who you actually are.</p>
-                
-                <p>I find it so difficult to open up about my feelings because I fear they’ll be used against me, or I’ll just be told again to bottle it up because I’m a man. Even though I know darn well that men are allowed to be weak sometimes. Men are allowed to cry.</p>
-                
-                <p>I’m not hideous. I’m just ordinary. And apparently that’s enough to be discarded. I’m so exhausted from the fear of abandonment, the jealousy, the anxiety, the depression, and the suicide attempt at 14–15 that still haunts me. I try to live by my Christian values, but some days it feels like the world punishes me for it.</p>
-                
-                <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there who will be patient, brave, and in love enough to choose the real me. Or if I’m doomed to stay unseen forever.</p>
-                
-                <div class="signature">— A scared, exhausted, still-hoping Christian man turning 18 soon</div>
+                <footer>
+                    written in the dark • still fighting • Finland, 2026<br>
+                    made by seraphi.ii
+                </footer>
             </div>
-            
-            <footer>
-                written in the dark • still fighting • Finland, 2026<br>
-                made by seraphi.ii
-            </footer>
         </div>
-    </div>
 
-    <!-- Second Page -->
-    <div id="page2" class="overlay" style="display:none;">
-        <div class="container" style="text-align:center; max-width:720px;">
-            <h2 style="color:#a0b8ff; margin-bottom:30px;">Thank you for reading.</h2>
-            <p>If these words reached you, I hope they made you feel less alone — even for a moment.</p>
-            <p style="margin-top:50px; color:#667799;">God bless you.</p>
-            <p onclick="showFirstPage()" style="margin-top:80px; color:#8899cc; cursor:pointer; font-size:1.1rem;">← Back to the letter</p>
+        <!-- Second Page -->
+        <div id="page2" style="display:none;" class="overlay">
+            <div class="container" style="text-align:center; max-width:720px;">
+                <h2 style="color:#a0b8ff; margin-bottom:30px;">Thank you for reading.</h2>
+                <p>If these words reached you, I hope they made you feel less alone — even for a moment.</p>
+                <p style="margin-top:50px; color:#667799;">God bless you.</p>
+                <p onclick="showFirstPage()" style="margin-top:80px; color:#8899cc; cursor:pointer; font-size:1.1rem;">← Back to the letter</p>
+            </div>
         </div>
     </div>
 
     <script>
-        const correctPassword = "seraphi"; // ← Change this to whatever you want
+        const correctPassword = "seraphi";   // ← Change this to your desired password
 
         function checkPassword() {
-            const input = document.getElementById('passInput').value;
-            const error = document.getElementById('error');
+            const input = document.getElementById("passInput").value;
             if (input === correctPassword) {
-                document.getElementById('password-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'flex';
-                restoreScrollPosition();
+                document.getElementById("password-screen").style.display = "none";
+                document.getElementById("main-content").style.display = "block";
+                
+                // Restore scroll position
+                const savedPos = localStorage.getItem('scrollPos');
+                if (savedPos) setTimeout(() => window.scrollTo(0, parseInt(savedPos)), 200);
             } else {
-                error.style.display = 'block';
-                setTimeout(() => error.style.display = 'none', 2000);
+                document.getElementById("error").style.display = "block";
+                setTimeout(() => document.getElementById("error").style.display = "none", 2500);
             }
         }
 
-        // Canvas Starry Sky (same as before)
+        document.getElementById("passInput").addEventListener("keypress", function(e) {
+            if (e.key === "Enter") checkPassword();
+        });
+
+        // Canvas Starry Sky
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -156,14 +171,14 @@
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * width;
-                this.y = Math.random() * height * 0.8;
-                this.size = Math.random() * 1.8 + 0.6;
-                this.twinkleSpeed = Math.random() * 0.025 + 0.008;
+                this.y = Math.random() * height * 0.85;
+                this.size = Math.random() * 1.9 + 0.7;
+                this.speed = Math.random() * 0.025 + 0.01;
             }
-            update() { this.size = 0.8 + Math.sin(Date.now() * this.twinkleSpeed) * 1.1; }
+            update() { this.size = 0.9 + Math.sin(Date.now() * this.speed) * 1.1; }
             draw() {
                 ctx.fillStyle = '#ffffff';
-                ctx.globalAlpha = 0.5 + Math.sin(Date.now() * this.twinkleSpeed) * 0.5;
+                ctx.globalAlpha = 0.5 + Math.sin(Date.now() * this.speed) * 0.5;
                 ctx.fillRect(this.x, this.y, this.size, this.size);
             }
         }
@@ -177,23 +192,44 @@
         }
         animate();
 
-        // Shooting stars and other functions (same as previous)
-        function createShootingStar() { /* ... same code as before ... */ }
-        function createBurst() { /* ... same code as before ... */ }
-        setInterval(() => { if (Math.random() > 0.48) createShootingStar(); }, 2600);
+        // Shooting Stars
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.style.position = 'fixed';
+            star.style.top = Math.random() * 65 + '%';
+            star.style.left = '-50px';
+            star.style.height = '2px';
+            star.style.width = Math.random() * 140 + 80 + 'px';
+            star.style.background = 'linear-gradient(90deg, transparent, #c0d8ff, transparent)';
+            star.style.boxShadow = '0 0 18px #a0c8ff';
+            star.style.zIndex = '-1';
+            star.style.opacity = '0';
+            star.style.transform = 'rotate(12deg)';
+            document.body.appendChild(star);
 
-        // Progress bar, scroll save, etc. (same as before)
+            star.animate([
+                { transform: 'translateX(0) rotate(12deg)', opacity: 0 },
+                { opacity: 0.9, offset: 0.15 },
+                { transform: `translateX(${window.innerWidth + 400}px) rotate(12deg)`, opacity: 0 }
+            ], { duration: Math.random() * 2200 + 2800, easing: 'linear' });
+
+            setTimeout(() => star.remove(), 9000);
+        }
+
+        function createBurst() {
+            for (let i = 0; i < 12; i++) setTimeout(createShootingStar, i * 80);
+        }
+
+        setInterval(() => { if (Math.random() > 0.45) createShootingStar(); }, 2600);
+
+        // Progress Bar + Auto-save scroll
         window.addEventListener('scroll', () => {
             const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             document.getElementById("progress").style.width = scrolled + "%";
             localStorage.setItem('scrollPos', window.scrollY);
         });
 
-        function restoreScrollPosition() {
-            const pos = localStorage.getItem('scrollPos');
-            if (pos) setTimeout(() => window.scrollTo(0, parseInt(pos)), 400);
-        }
-
+        // Page switching
         function showSecondPage() {
             document.getElementById('page1').style.display = 'none';
             document.getElementById('page2').style.display = 'flex';
@@ -204,11 +240,6 @@
             document.getElementById('page2').style.display = 'none';
             document.getElementById('page1').style.display = 'flex';
         }
-
-        // Allow Enter key on password
-        document.getElementById('passInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkPassword();
-        });
     </script>
 </body>
 </html>
