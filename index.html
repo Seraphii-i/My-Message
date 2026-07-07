@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unseen.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Space+Grotesk:wght@400;500&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0e1f;
+            color: #c8d0e0;
+            font-family: 'Inconsolata', monospace;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Starry Background */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover no-repeat;
+            z-index: -2;
+            animation: slowDrift 180s linear infinite;
+        }
+
+        .stars::before,
+        .stars::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.6;
+            animation: twinkle 8s infinite alternate;
+        }
+
+        .stars::after {
+            background-size: 120px 120px;
+            animation-duration: 12s;
+            opacity: 0.4;
+        }
+
+        @keyframes slowDrift {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 80px; }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.4; }
+            100% { opacity: 0.85; }
+        }
+
+        .overlay {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to bottom, rgba(10,15,40,0.7), rgba(15,20,50,0.95));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 740px;
+            background: rgba(15, 23, 55, 0.96);
+            border: 1px solid #445577;
+            border-radius: 12px;
+            padding: 60px 50px;
+            box-shadow: 0 0 60px rgba(100, 140, 255, 0.25);
+            animation: float 25s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            color: #a0b8ff;
+            text-align: center;
+            margin: 0 0 12px 0;
+            text-shadow: 0 0 20px rgba(140, 180, 255, 0.7);
+            animation: glow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 15px rgba(140, 180, 255, 0.6); }
+            to { text-shadow: 0 0 35px rgba(160, 200, 255, 0.9); }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8899cc;
+            letter-spacing: 3px;
+            margin-bottom: 50px;
+            font-size: 1.05rem;
+        }
+
+        .letter {
+            font-size: 1.18rem;
+            line-height: 1.85;
+            color: #d0d6e8;
+        }
+
+        .letter p {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s forwards;
+        }
+
+        .letter p:nth-child(1) { animation-delay: 0.3s; }
+        .letter p:nth-child(2) { animation-delay: 0.8s; }
+        .letter p:nth-child(3) { animation-delay: 1.4s; }
+        .letter p:nth-child(4) { animation-delay: 2.0s; }
+        .letter p:nth-child(5) { animation-delay: 2.6s; }
+        .letter p:nth-child(6) { animation-delay: 3.2s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signature {
+            margin-top: 70px;
+            text-align: right;
+            font-style: italic;
+            color: #99aadd;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 90px;
+            color: #556688;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="overlay">
+        <div class="container">
+            <header>
+                <h1>unseen.</h1>
+                <p class="subtitle">a letter from someone who's been quiet too long</p>
+            </header>
+            
+            <div class="letter">
+                <p>To whoever actually stops and reads this —</p>
+                
+                <p>There’s nothing in me worth admiring. I’ve carried that truth for years, buried so deep I almost believed I was fine. I’m not.</p>
+                
+                <p>All I really want is to be held. Not politely. Not for a moment. I want arms that wrap around everything I’ve been hiding and don’t let go. Someone who looks past this face, past the silence, and still chooses to stay. I’m so tired of being glanced at and discarded.</p>
+                
+                <p>People say the words sometimes. “You matter.” “I’m here for you.” But their hands never reach. Their eyes never linger. And every time it happens, that quiet voice inside me gets louder: *See? Nothing here is worth it.*</p>
+                
+                <p>Years of bottling this up. Pretending I’m okay. Smiling when I’m breaking. Carrying the weight alone because the idea of admitting how badly I need to be seen feels more terrifying than the loneliness itself.</p>
+                
+                <p>I still wonder if I’m truly enough for anyone. If there’s anything inside this tired body worth loving. Most nights I’m convinced the answer is no.</p>
+                
+                <p>But here it is anyway. The truth I’ve kept quiet for so long.</p>
+                
+                <div class="signature">
+                    — A man still hoping someone will see him
+                </div>
+            </div>
+            
+            <footer>
+                written in the dark • still breathing • 2026
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
