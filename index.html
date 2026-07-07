@@ -8,29 +8,46 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Space+Grotesk:wght@400;500;600&display=swap');
         
-        body { margin:0; padding:0; background:#02040a; color:#c8d0e0; font-family:'Inconsolata', monospace; overflow-x:hidden; min-height:100vh; }
-        canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
+        body { 
+            margin:0; padding:0; 
+            background: #02040a url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover fixed; 
+            color:#c8d0e0; 
+            font-family:'Inconsolata', monospace; 
+            overflow-x:hidden; 
+            min-height:100vh; 
+        }
+        canvas { 
+            position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; pointer-events:none; 
+            mix-blend-mode: screen; 
+            opacity: 0.75;
+        }
 
-        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(2,4,15,0.82), rgba(8,12,40,0.97)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+        .overlay { 
+            position:relative; min-height:100vh; 
+            background:linear-gradient(to bottom, rgba(2,4,20,0.75), rgba(8,12,45,0.92)); 
+            display:flex; align-items:center; justify-content:center; padding:40px 20px; 
+        }
         
         .container {
             max-width:880px; background:rgba(10,15,40,0.96); border:1px solid #445577; border-radius:22px;
-            padding:90px 75px; box-shadow:0 0 100px rgba(110,150,255,0.4); animation:float 42s ease-in-out infinite;
+            padding:90px 75px; box-shadow:0 0 100px rgba(110,150,255,0.4); animation:float 45s ease-in-out infinite;
         }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-22px)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
 
         .progress-bar {
-            position:fixed; top:0; left:0; height:3px; background:linear-gradient(to right, #a0b8ff, #c0d0ff); z-index:100; transition:width 0.1s;
+            position:fixed; top:0; left:0; height:3px; background:linear-gradient(to right, #a0b8ff, #c0d0ff); z-index:100; transition:width 0.15s ease-out;
         }
 
         h1 {
             font-family:'Space Grotesk',sans-serif; font-size:3.6rem; color:#b8cfff;
             text-align:center; cursor:pointer; margin:0 0 12px 0;
             text-shadow:0 0 45px rgba(160,200,255,0.95);
+            transition: all 0.5s ease;
         }
-        h1:hover { transform:scale(1.06); }
+        h1:hover { transform:scale(1.05); }
 
-        .subtitle { text-align:center; color:#8899cc; letter-spacing:6px; margin-bottom:70px; font-size:1.12rem; }
+        .subtitle { text-align:center; color:#8899cc; letter-spacing:6px; margin-bottom:70px; font-size:1.12rem; cursor:pointer; }
+        .subtitle:hover { color:#a0b8ff; }
 
         .letter { font-size:1.27rem; line-height:2.15; color:#d0d8ee; }
         .letter p { margin-bottom:40px; }
@@ -39,13 +56,6 @@
 
         footer { 
             text-align:center; margin-top:150px; color:#556688; font-size:0.9rem; 
-            cursor:pointer; transition: color 0.3s;
-        }
-        footer:hover { color: #a0b8ff; }
-
-        .second-page {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(2,4,15,0.98); z-index: 200; padding: 80px 40px; overflow-y: auto;
         }
     </style>
 </head>
@@ -53,11 +63,11 @@
     <canvas id="canvas"></canvas>
     <div class="progress-bar" id="progress"></div>
 
-    <div class="overlay" id="mainPage">
+    <div class="overlay" id="page1">
         <div class="container">
             <header>
                 <h1 onclick="createBurst()">unseen.</h1>
-                <p class="subtitle">a letter from a man turning 18 who’s been quiet too long</p>
+                <p class="subtitle" onclick="showSecondPage()">a letter from a man turning 18 who’s been quiet too long</p>
             </header>
             
             <div class="letter">
@@ -80,100 +90,128 @@
                 <div class="signature">— A scared, exhausted, still-hoping Christian man turning 18 soon</div>
             </div>
             
-            <footer onclick="showSecondPage()">written in the dark • still fighting • Finland, 2026</footer>
+            <footer>
+                written in the dark • still fighting • Finland, 2026<br>
+                made by seraphi.ii
+            </footer>
         </div>
     </div>
 
     <!-- Second Page -->
-    <div class="second-page" id="secondPage">
-        <div style="max-width:720px; margin:auto; text-align:center;">
-            <h1 style="font-size:2.8rem; margin-bottom:40px;">Thank you for reading.</h1>
-            <p style="font-size:1.25rem; line-height:1.9; color:#b0c0e0;">
-                If these words reached you… thank you.<br><br>
-                I don’t expect anything. I just needed to let it out.<br>
-                If you’re struggling too — I see you. You’re not alone.<br><br>
-                May God give us both the strength to keep going.
-            </p>
-            <p onclick="hideSecondPage()" style="margin-top:80px; color:#667799; cursor:pointer; text-decoration:underline;">
-                ← Back to the letter
-            </p>
+    <div id="page2" style="display:none;" class="overlay">
+        <div class="container" style="text-align:center; max-width:720px;">
+            <h2 style="color:#a0b8ff; margin-bottom:30px;">Thank you for reading.</h2>
+            <p>If these words reached you, I hope they made you feel less alone — even for a moment.</p>
+            <p style="margin-top:50px; color:#667799;">God bless you.</p>
+            <p onclick="showFirstPage()" style="margin-top:80px; color:#8899cc; cursor:pointer; font-size:1.1rem;">← Back to the letter</p>
         </div>
     </div>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
 
         let stars = [];
         class Star {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.2;
-                this.speed = Math.random() * 0.02 + 0.008;
+                this.reset();
             }
-            update() { this.size = 1.8 + Math.sin(Date.now() * this.speed) * 0.9; }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height * 0.8;
+                this.size = Math.random() * 1.8 + 0.6;
+                this.twinkleSpeed = Math.random() * 0.025 + 0.008;
+            }
+            update() {
+                this.size = 0.8 + Math.sin(Date.now() * this.twinkleSpeed) * 1.1;
+            }
             draw() {
-                ctx.fillStyle = 'white';
-                ctx.globalAlpha = 0.6 + Math.sin(Date.now() * this.speed) * 0.4;
+                ctx.fillStyle = '#ffffff';
+                ctx.globalAlpha = 0.5 + Math.sin(Date.now() * this.twinkleSpeed) * 0.5;
                 ctx.fillRect(this.x, this.y, this.size, this.size);
             }
         }
 
-        for (let i = 0; i < 480; i++) stars.push(new Star());
+        for (let i = 0; i < 380; i++) stars.push(new Star()); // Moderate number
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(s => { s.update(); s.draw(); });
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
             requestAnimationFrame(animate);
         }
         animate();
 
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
+        // Shooting Stars
         function createShootingStar() {
             const star = document.createElement('div');
-            star.className = 'shooting-star';
-            star.style.top = Math.random() * 70 + '%';
-            star.style.animationDuration = (Math.random() * 5 + 4) + 's';
+            star.style.position = 'fixed';
+            star.style.top = Math.random() * 65 + '%';
+            star.style.left = '-50px';
+            star.style.height = '2px';
+            star.style.width = Math.random() * 120 + 80 + 'px';
+            star.style.background = 'linear-gradient(90deg, transparent, #c0d8ff, transparent)';
+            star.style.boxShadow = '0 0 18px #a0c8ff';
+            star.style.zIndex = '-1';
+            star.style.opacity = '0';
+            star.style.transform = 'rotate(12deg)';
             document.body.appendChild(star);
-            setTimeout(() => star.remove(), 11000);
+
+            star.animate([
+                { transform: 'translateX(0) rotate(12deg)', opacity: 0 },
+                { opacity: 0.9, offset: 0.15 },
+                { transform: `translateX(${window.innerWidth + 300}px) rotate(12deg)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 2200 + 2800,
+                easing: 'linear'
+            });
+
+            setTimeout(() => star.remove(), 8000);
         }
 
         function createBurst() {
-            for (let i = 0; i < 14; i++) setTimeout(createShootingStar, i * 60);
+            for (let i = 0; i < 12; i++) {
+                setTimeout(createShootingStar, i * 90);
+            }
         }
 
-        setInterval(() => { if (Math.random() > 0.48) createShootingStar(); }, 2400);
+        setInterval(() => {
+            if (Math.random() > 0.45) createShootingStar();
+        }, 2600);
 
-        // Progress Bar + Auto-save position
-        const progress = document.getElementById("progress");
+        // Progress Bar
         window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progress.style.width = scrolled + "%";
-
-            localStorage.setItem('scrollPosition', winScroll);
+            const scrolled = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById("progress").style.width = scrolled + "%";
         });
 
-        // Restore scroll position
+        // Auto-save scroll
+        window.addEventListener('scroll', () => localStorage.setItem('scrollPos', window.scrollY));
         window.addEventListener('load', () => {
-            const saved = localStorage.getItem('scrollPosition');
-            if (saved) window.scrollTo(0, parseInt(saved));
+            const pos = localStorage.getItem('scrollPos');
+            if (pos) setTimeout(() => window.scrollTo(0, parseInt(pos)), 300);
         });
 
-        // Second Page
+        // Page switching
         function showSecondPage() {
-            document.getElementById('secondPage').style.display = 'flex';
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'flex';
+            window.scrollTo(0, 0);
         }
-        function hideSecondPage() {
-            document.getElementById('secondPage').style.display = 'none';
+
+        function showFirstPage() {
+            document.getElementById('page2').style.display = 'none';
+            document.getElementById('page1').style.display = 'flex';
         }
     </script>
 </body>
