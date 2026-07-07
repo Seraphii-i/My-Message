@@ -3,66 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A raw letter from a man in Finland who just wants to be seen.">
     <title>unseen.</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Space+Grotesk:wght@400;500;600&display=swap');
         
-        body { margin:0; padding:0; background:#0a0e1f; color:#c8d0e0; font-family:'Inconsolata', monospace; overflow-x:hidden; min-height:100vh; }
-        .stars { position:fixed; inset:0; background:#0a0e1f url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover; z-index:-3; animation:slowDrift 160s linear infinite; }
+        body { margin:0; padding:0; background:#05070f; color:#c8d0e0; font-family:'Inconsolata', monospace; overflow-x:hidden; min-height:100vh; }
+        .stars { position:fixed; inset:0; background:#05070f url('https://images.unsplash.com/photo-1506318137071-a8e063b4bec0') center/cover; z-index:-4; animation:slowDrift 200s linear infinite; }
         .stars::before, .stars::after {
             content:''; position:absolute; inset:0;
-            background:radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px);
-            background-size:90px 90px; animation:twinkle 7s infinite alternate ease-in-out; z-index:-2;
+            background:radial-gradient(circle, rgba(255,255,255,0.95) 1px, transparent 1px);
+            background-size:80px 80px; animation:twinkle 6s infinite alternate; z-index:-3;
         }
-        .stars::after { background-size:140px 140px; animation-duration:11s; opacity:0.5; }
+        .stars::after { background-size:150px 150px; animation-duration:13s; opacity:0.45; }
 
-        @keyframes slowDrift { 0%{background-position:0 0} 100%{background-position:80px 60px} }
-        @keyframes twinkle { 0%{opacity:0.35} 100%{opacity:0.9} }
+        @keyframes slowDrift { 0%{background-position:0 0} 100%{background-position:100px 80px} }
+        @keyframes twinkle { 0%{opacity:0.3} 100%{opacity:0.95} }
 
-        .shooting-star { position:absolute; top:15%; left:-100px; width:180px; height:2px; background:linear-gradient(90deg,transparent,#a0c0ff,transparent); box-shadow:0 0 12px #a0c0ff; animation:shoot 8s linear infinite; opacity:0; z-index:-1; }
-        @keyframes shoot { 0%{transform:translateX(0) translateY(0); opacity:0} 10%{opacity:0.9} 30%{opacity:0.9} 100%{transform:translateX(1200px) translateY(300px); opacity:0} }
+        .shooting-star { position:absolute; height:2px; background:linear-gradient(90deg,transparent,#a0d0ff,transparent); box-shadow:0 0 15px #a0d0ff; animation:shoot 7s linear forwards; opacity:0; z-index:-2; }
+        @keyframes shoot { 0%{transform:translateX(-200px) translateY(0); opacity:0} 20%{opacity:1} 100%{transform:translateX(1400px) translateY(400px); opacity:0} }
 
-        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(8,12,35,0.8), rgba(12,18,48,0.95)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+        .overlay { position:relative; min-height:100vh; background:linear-gradient(to bottom, rgba(5,7,25,0.85), rgba(10,15,45,0.97)); display:flex; align-items:center; justify-content:center; padding:40px 20px; }
         
         .container {
-            max-width:780px; background:rgba(13,20,48,0.97); border:1px solid #445577; border-radius:16px;
-            padding:70px 60px; box-shadow:0 0 70px rgba(110,150,255,0.3); animation:float 32s ease-in-out infinite;
+            max-width:860px; background:rgba(12,18,45,0.96); border:1px solid #445577; border-radius:18px;
+            padding:80px 70px; box-shadow:0 0 80px rgba(120,160,255,0.25); animation:float 35s ease-in-out infinite;
         }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-22px)} }
+        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
 
         h1 {
-            font-family:'Space Grotesk',sans-serif; font-size:3.1rem; font-weight:600; color:#b0c8ff;
-            text-align:center; margin:0 0 10px 0; text-shadow:0 0 30px rgba(160,200,255,0.8);
-            animation:titleGlow 5s ease-in-out infinite alternate;
+            font-family:'Space Grotesk',sans-serif; font-size:3.4rem; color:#b8cfff;
+            text-align:center; cursor:pointer; margin:0 0 12px 0;
+            text-shadow:0 0 35px rgba(160,200,255,0.85);
         }
-        @keyframes titleGlow { from{text-shadow:0 0 20px rgba(160,200,255,0.6)} to{text-shadow:0 0 45px rgba(180,220,255,1)} }
+        h1:hover { transform:scale(1.03); }
 
-        .subtitle { text-align:center; color:#8899cc; letter-spacing:4px; font-size:1.1rem; margin-bottom:55px; }
+        .subtitle { text-align:center; color:#8899cc; letter-spacing:5px; margin-bottom:65px; font-size:1.1rem; }
 
-        .letter { font-size:1.22rem; line-height:1.95; color:#d0d7eb; }
-        .letter p { margin-bottom:34px; opacity:0; transform:translateY(35px); animation:fadeUp 1.4s forwards; }
-        .letter p:nth-child(1){animation-delay:0.4s} .letter p:nth-child(2){animation-delay:1.1s}
-        .letter p:nth-child(3){animation-delay:1.9s} .letter p:nth-child(4){animation-delay:2.7s}
-        .letter p:nth-child(5){animation-delay:3.5s} .letter p:nth-child(6){animation-delay:4.3s}
-        .letter p:nth-child(7){animation-delay:5.1s}
+        .letter { font-size:1.26rem; line-height:2.1; color:#d0d8ee; }
+        .letter p { margin-bottom:38px; }
+        .letter .break { margin: 34px 0; display:block; color:#667799; }
 
-        @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
-
-        .signature { margin-top:80px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.18rem; }
-        footer { text-align:center; margin-top:110px; color:#556688; font-size:0.9rem; }
+        .signature { margin-top:95px; text-align:right; font-style:italic; color:#a0b0dd; font-size:1.25rem; }
+        footer { text-align:center; margin-top:140px; color:#556688; font-size:0.9rem; }
     </style>
 </head>
 <body>
     <div class="stars"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star" style="top:35%; animation-delay:4s;"></div>
-    <div class="shooting-star" style="top:22%; animation-delay:9s; animation-duration:6s;"></div>
 
     <div class="overlay">
         <div class="container">
             <header>
-                <h1>unseen.</h1>
-                <p class="subtitle">a letter from a man who's been quiet too long</p>
+                <h1 onclick="createShootingStar()">unseen.</h1>
+                <p class="subtitle">a letter from a boy turning 18 who’s been quiet too long</p>
             </header>
             
             <div class="letter">
@@ -70,25 +63,45 @@
                 
                 <p>There’s nothing in me worth admiring. I’ve known it for so long it feels like a scar that won’t heal. I wake up every day carrying this quiet shame, smiling at the world while something inside me slowly dies from being unseen for so many years.</p>
                 
-                <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone.</p>
+                <p>I’m a Christian boy from Finland who believes in discipline, honesty, loyalty, and putting Christ first. I love this country deeply. I stand for traditional values. Yet I’ve been fighting high-functioning depression, chronic stress, social anxiety, fear of abandonment, jealousy, and the terror of being replaced since I was eight years old. I’m seventeen now, turning eighteen on August 14th, and some days it feels unbearable.</p>
                 
-                <p>But people rarely see past my appearance. That’s the truth that cuts deepest. In this world, looks are everything. Personality, character, maturity, loyalty, how hard I work, how deeply I feel — none of it seems to matter anymore. People care ten times more about how you look than who you actually are. I know appearance matters to some degree, but it shouldn’t matter so much that you completely ignore someone just because they aren’t some damn bodybuilder with perfect features. It shouldn’t make you invisible.</p>
+                <p>I just want to be held. God, I want it so badly it hurts. Not some casual hug — I want arms that wrap around all of me, the heavy parts, the broken parts, the parts I hide from everyone. Someone patient enough to wait until I can scrape together a flight ticket so they can finally come here to Finland. Someone brave enough to look their parents in the eye and say they really want to meet me. Someone so in love with me they’d feel jealous if another girl even talked to me. I want to matter that much to someone. I want to finally feel safe.</p>
+                
+                <p class="break">But people rarely see past my appearance. That’s the truth that cuts deepest.</p>
+                
+                <p>From middle school through high school and even now, I’ve been harassed and bullied relentlessly — mocked for how I look, for being quiet and reserved, for not joining their stupid shenanigans. They made sure I knew I was worthless. In this world, looks are everything. Personality, character, maturity, loyalty, how hard I work, how deeply I feel, my faith — none of it seems to matter anymore. People care ten times more about how you look than who you actually are. I know appearance matters to some degree, but it shouldn’t matter so much that you completely ignore someone just because they aren’t some damn bodybuilder with perfect features. It shouldn’t make you invisible.</p>
                 
                 <p>I’m not hideous. I’m just… ordinary. Average. And apparently that’s enough to be discarded. I watch people swipe past, glance and look away, judge in seconds. They never stay long enough to see that I’d treat them better than anyone ever has. That I’d be loyal as hell. That I’d actually listen. That I have a heart that still hopes even after all this silence.</p>
                 
                 <p>So I stay quiet. I bottle it up. I carry the loneliness like it’s normal. Because admitting how desperately I want to be chosen — how badly I need someone to see me and still want me — feels more dangerous than staying alone. I’m tired of being the guy who’s “nice” but never enough. Tired of being overlooked while everyone chases the fantasy version of a man I’ll never be.</p>
                 
-                <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there who will be patient, brave, and in love enough to cross the distance, to fight the doubts, to choose the real me over the perfect picture. Or if I’m doomed to stay unseen forever.</p>
+                <p>I’m so fucking exhausted. Exhausted from the fear of abandonment that never leaves. Exhausted from the jealousy that flares up when I imagine being replaced. Exhausted from pretending I’m okay when I attempted suicide at 14–15 and kept going. Exhausted from smiling while I break inside.</p>
+                
+                <p>I still wonder if I’ll ever be enough for anyone. If there’s someone out there — someone who fears God, values biblical truth, and will look at all this mess and still choose the real me. Someone patient, brave, and in love enough to cross the distance, to fight the doubts, to stay when things get heavy.</p>
+                
+                <p>Or if I’m doomed to stay unseen forever.</p>
                 
                 <div class="signature">
-                    — Just a tired man in Finland, still hoping someone will see him
+                    — A scared, exhausted, still-hoping Christian boy turning 18 soon
                 </div>
             </div>
             
             <footer>
-                written in the dark • still breathing • 2026
+                written in the dark • still fighting • Finland, 2026
             </footer>
         </div>
     </div>
+
+    <script>
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.className = 'shooting-star';
+            star.style.top = Math.random() * 65 + '%';
+            star.style.animationDuration = (Math.random() * 4 + 5) + 's';
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 9000);
+        }
+        setInterval(() => { if (Math.random() > 0.6) createShootingStar(); }, 3200);
+    </script>
 </body>
 </html>
